@@ -71,6 +71,10 @@ class Board
     end
   end
 
+  def reveal(pos)
+    self[pos].reveal
+  end
+
   def [](pos)
     row, col = pos
     @grid[row][col]
