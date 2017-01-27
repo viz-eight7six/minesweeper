@@ -71,9 +71,13 @@ class Board
     end
   end
 
-  def reveal(pos)
-    self[pos].reveal
-  end
+  # reveal will reveal the square, and check adjacent squares for blank,
+  # and reveal those if they are blank
+  # def reveal(pos)
+  #   self[pos].reveal
+  #    if self[pos].
+  #
+  # end
 
   def [](pos)
     row, col = pos
