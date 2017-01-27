@@ -1,11 +1,17 @@
 require_relative 'tile'
 
 class Board
-  attr_reader :size
+  attr_reader :size, :grid
   def initialize(size, num_of_bombs)
     @size = size
     @num_of_bombs = num_of_bombs
     @grid = Array.new(size) { Array.new(size) }
+  end
+
+  def set_up_board
+    place_bombs
+    place_numbers
+    place_tiles
   end
 
   def place_bombs
@@ -42,10 +48,27 @@ class Board
     adjacents
   end
 
+  def place_tiles
+    (size).times do |row|
+      (size).times do |col|
+        pos = [row, col]
+        self[pos] = Tile.new(self[pos])
+      end
+    end
+  end
+
   def valid_pos?(pos)
     row, col = pos
     (0...size).include?(row) &&
       (0...size).include?(col)
+  end
+
+  def render
+    puts "Awesome Minesweeper!"
+    puts "  #{(0...size).to_a.join(" ")}"
+    grid.each_with_index do |row, i|
+      puts "#{i} #{row.map{ |tile| tile.display }.join(" ")}"
+    end
   end
 
   def [](pos)
